@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Filtering Container</title>
+
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+    /* Filter Pill Component */
+    .filter-pill {
+      position:relative;
+      margin-right: 10px;
+      color:#8a6d3b;
+      background-color: #fcf8e3;
+      border:1px solid #faebcc;
+      padding:10px;
+      padding-right: 30px;
+      border-radius: 4px;
+    }
+    .filter-pill:last-child {
+      margin-right: 0;
+    }
+    .filter-pill.is-editable {
+
+    }
+    .filter-pill.is-noneditable {
+
+    }
+
+    /* Filter Pill Form Types*/
+    .form-text {
+
+    }
+    .form-toggle {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    .form-select-range {
+
+    }
+    .form-heading {
+      margin-right:5px;
+    }
+    .form-select-range input.form-control.select-range-number-field {
+      width:60px;
+    }
+
+    .filter-pill .close {
+      position: absolute;
+      top:0px;
+      right:5px;
+      outline: none;
+    }
+    .filter-pill .btn-edit {
+      border-bottom: 1px dotted #777;
+      margin-left:15px;
+      cursor:pointer;
+    }
+    .filter-pill .btn-edit:hover {
+      color:brown;
+    }
+    /* Desktop Specific */
+    @media (min-width: 768px) {
+      .navbar-collapse {
+        padding-left:0;
+      }
+    }
+    /* Mobile Specific */
+    @media (max-width: 768px) {
+      .filter-pill {
+        margin-right:0px;
+        margin-left:0px;
+      }
+    }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <h1>Seattle Pulse Filters</h1>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand visible-xs" href="#">Filters</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add a Filter(s) <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" data-ref="filter-pill-search">Search for Vehicle</a></li>
+                  <li><a href="#" data-ref="filter-pill-toggle">On/Off Duty Toggle</a></li>
+                  <li><a href="#" data-ref="filter-pill-speed">Speed Range</a></li>
+<!--                   <li role="separator" class="divider"></li>
+                  <li><a href="#">Close within a Range</a></li> -->
+                </ul>
+              </li>
+            </ul>
+
+            <div id="filter-pill-search" class="filter-pill navbar-form navbar-left hidden">
+              <div class="is-editable">
+                <form id="form-search" class="form-inline form-text">
+                  <div class="form-group">
+                    <label for="searchName">Name:</label>
+                    <input type="text" id="searchName" class="form-control" placeholder="Search">
+                  </div>
+                  <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+              </div>
+              <div class="is-noneditable hidden">
+                <strong>Name:</strong>
+                <span class="input-presenter search-val"></span>
+                <span class="btn-edit" data-ref="filter-pill-search">change</span>
+              </div>
+              <button type="button" class="close" data-ref="filter-pill-search"><span>&times;</span></button>
+            </div>
+
+            <div id="filter-pill-toggle" class="filter-pill navbar-form navbar-left hidden">
+              <div class="is-editable">
+                <form id="form-toggle" class="form-inline form-toggle">
+                  <div class="form-group">
+                    <strong class="form-heading">Show only:</strong>
+                    <label class="radio-inline">
+                      <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> On Duty
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Off Duty
+                    </label>
+                  </div>
+                </form>
+              </div>
+              <div class="is-noneditable hidden">
+                <strong>Show:</strong>
+                <span class="input-presenter">on Duty</span>
+                <span class="btn-edit">change</span>
+              </div>
+              <button type="button" class="close" data-ref="filter-pill-toggle"><span>&times;</span></button>
+            </div>
+
+            <div id="filter-pill-speed" class="filter-pill navbar-form navbar-left hidden">
+              <div class="is-editable">
+                <form id="form-range" class="form-inline form-select-range">
+                  <div class="form-group">
+                    <strong class="form-heading">Speed:</strong>
+                    <select class="form-control select-range-option">
+                      <option value="higher than ">Greater than</option>
+                      <option value="less than ">Less than</option>
+                      <option value="betwen ">Between</option>
+                    </select>
+                    <div class="input-group">
+                      <input type="number" class="form-control select-range-number-field" id="exampleInputAmount" min="1" placeholder="50">
+                      <div class="input-group-addon">mph</div>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+              </div>
+              <div class="is-noneditable">
+                <strong>Speed:</strong>
+                <span class="input-presenter option-val">higher than</span>
+                <span class="input-presenter speed-val">70</span> mph
+                <span class="btn-edit">change</span>
+              </div>
+              <button type="button" class="close" data-ref="filter-pill-speed"><span>&times;</span></button>
+            </div>
+
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+// #filter-pill-search
+// #filter-pill-toggle
+// #filter-pill-speed
+
+$(document).ready(function(){
+
+  $('.dropdown-menu').find('li').on('click', function(e) {
+    e.preventDefault();
+    var elem = $(e.target);
+    var ref = elem.data('ref');
+    var qRef = $('#' + ref);
+
+    // show filter-pill
+    qRef.removeClass('hidden');
+
+    // hide nonedit mode
+    qRef.find('.is-noneditable').addClass('hidden');
+    // show edit mode
+    qRef.find('.is-editable').removeClass('hidden');
+
+    // focus to input field
+    qRef.find('.is-editable input').first().focus();
+
+    // disable dropdown selection
+    elem.parent().addClass('disabled');
+  });
+
+  function toggleEditMode(elem) {
+    // hide edit mode
+    elem.find('.is-noneditable').removeClass('hidden');
+    // show nonedit mode
+    elem.find('.is-editable').addClass('hidden');
+  }
+
+  $('#form-search').on('submit',function(e){
+    e.preventDefault();
+
+    var searchText = $('#searchName').val();
+    $('.search-val').html(searchText);
+
+    var searchPill = $('#filter-pill-search');
+
+    toggleEditMode(searchPill);
+  });
+
+
+  $('#form-toggle input:radio').on('change',function(e){
+    var togglePill = $('#filter-pill-toggle');
+
+    toggleEditMode(togglePill);
+  });
+
+  $('#form-range').on('submit',function(e){
+    // e.preventDefault();
+
+    var speedPill = $('#filter-pill-speed');
+
+    $('#filter-pill-speed').find('.input-presenter.speed-val').html($('.select-range-number-field').val());
+    $('#filter-pill-speed').find('.input-presenter.option-val').html($('.select-range-option').val());
+
+    toggleEditMode(speedPill);
+  });
+
+  $('.btn-edit').on('click', function(e) {
+    var ref = $(e.target).data('ref');
+    var qRef = $('#' + ref);
+
+    // show edit mode
+    qRef.find('.is-editable').removeClass('hidden');
+    // hide nonedit mode
+    qRef.find('.is-noneditable').addClass('hidden');
+
+    // focus to input field
+    qRef.find('.is-editable input').first().focus();
+  });
+
+  $('.close').on('click', function(e) {
+    // get id of pill
+    var ref = $(this).data('ref');
+    var qRef = $('#' + ref);
+
+    // hide pill
+    qRef.addClass('hidden');
+
+    // clear value in input field
+    qRef.find('input').val('');
+    // clear value on nonedit tag
+    qRef.find('.input-presenter').html('');
+
+    // re-enable dropdown
+    $('.dropdown-menu').find('li a[data-ref=' + ref + ']').parent().removeClass('disabled');
+  });
+
+});
+</script>
+  </body>
+</html>
